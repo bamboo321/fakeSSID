@@ -15,7 +15,7 @@ void printPcap_if(pcap_if_t *a) {
 
 void printUsage() {
     printf("Usage: ./fakeSSID device ssidlist\n");
-    printf("\tdevice: wireless device name  e.g. wlan0");
+    printf("\tdevice: wireless device name  e.g. wlan0\n");
     printf("\tssidlist: SSID you want to show to neighbors. you can specify multiple SSID.\n");
 }
 
