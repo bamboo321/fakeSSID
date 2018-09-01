@@ -29,6 +29,12 @@ int main(int argc, char *argv[]) {
 
     char *devname;
     char *ssidList;
+
+    if (argc < 2) {
+        printUsage();
+        exit(EXIT_FAILURE);
+    }
+
     while ((ch = getopt(argc, argv, "d:f:")) != -1) {
         switch (ch) {
             case 'd':
