@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pcap/pcap.h>
+#include <unistd.h>
 
 
 void printPcap_if(pcap_if_t *a) {
@@ -12,7 +13,38 @@ void printPcap_if(pcap_if_t *a) {
     printf("-------------\n");
 }
 
-int main() {
+void printUsage() {
+    printf("Usage: ./fakeSSID device ssidlist\n");
+    printf("\tdevice: wireless device name  e.g. wlan0");
+    printf("\tssidlist: SSID you want to show to neighbors. you can specify multiple SSID.\n");
+}
+
+int main(int argc, char *argv[]) {
+    //
+    //variables for getopt
+    //
+    int ch;
+    extern char *optarg;
+    extern int optind, opterr, optopt;
+
+    char *devname;
+    char *ssidList;
+    while ((ch = getopt(argc, argv, "d:f:")) != -1) {
+        switch (ch) {
+            case 'd':
+                devname = optarg;
+                break;
+
+            case 'f':
+                ssidList = optarg;
+                break;
+
+            default:
+                printUsage();
+                exit(EXIT_FAILURE);
+        }
+    }
+
     char pcap_errbuf[PCAP_ERRBUF_SIZE];
     pcap_errbuf[0] = '\0';
 
@@ -32,11 +64,7 @@ int main() {
         currentAddress = currentAddress->next;
     }
 
-
-
-
-
-    pcap_t *pcap = pcap_open_live("eth0", 96, 0, 0, pcap_errbuf);
+    pcap_t *pcap = pcap_open_live(devname, 96, 0, 0, pcap_errbuf);
 
     if (pcap_errbuf[0] != '\0') {
         fprintf(stderr, "%s", pcap_errbuf);
