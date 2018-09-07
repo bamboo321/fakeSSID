@@ -20,13 +20,6 @@ void printUsage() {
 }
 
 int main(int argc, char *argv[]) {
-    //
-    //variables for getopt
-    //
-    int ch;
-    extern char *optarg;
-    extern int optind, opterr, optopt;
-
     char *devname;
     char *ssidList;
 
@@ -34,23 +27,11 @@ int main(int argc, char *argv[]) {
         printUsage();
         exit(EXIT_FAILURE);
     }
+    
+    devname = argv[1];
+    ssidList = argv[2];
 
-    while ((ch = getopt(argc, argv, "d:f:")) != -1) {
-        switch (ch) {
-            case 'd':
-                devname = optarg;
-                break;
-
-            case 'f':
-                ssidList = optarg;
-                break;
-
-            default:
-                printUsage();
-                exit(EXIT_FAILURE);
-        }
-    }
-
+    
     char pcap_errbuf[PCAP_ERRBUF_SIZE];
     pcap_errbuf[0] = '\0';
 
