@@ -38,18 +38,22 @@ int main(int argc, char *argv[]) {
     //
     //find wireless device
     //
+    /*
     pcap_if_t *alldevsp;
     if (pcap_findalldevs(&alldevsp, pcap_errbuf) == -1) {
         printf("%s\n", pcap_errbuf);
         exit(EXIT_FAILURE);
     }
+    */
 
 
+    /*
     pcap_if_t *currentAddress = alldevsp;
     while (currentAddress->next != NULL) {
         printPcap_if(currentAddress);
         currentAddress = currentAddress->next;
     }
+    */
 
     pcap_t *pcap = pcap_open_live(devname, 96, 0, 0, pcap_errbuf);
 
